@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../london-week/london-mobile2/.idea/airbnb-react-native-front.iml" filepath="$PROJECT_DIR$/../london-week/london-mobile2/.idea/airbnb-react-native-front.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/londonweek.iml" filepath="$PROJECT_DIR$/.idea/londonweek.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../unbox/.idea/unbox.iml" filepath="$PROJECT_DIR$/../unbox/.idea/unbox.iml" />
+    </modules>
+  </component>
+</project>
