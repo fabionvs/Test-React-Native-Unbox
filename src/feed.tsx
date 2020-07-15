@@ -7,6 +7,7 @@ import {Movie} from './components/movie';
 import {SliderMovies} from './components/sliderMovies';
 import {StackNavigatorParamlist} from './types';
 import axios from "axios";
+import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 
 type TwittProps = React.ComponentProps<typeof Movie>;
 
@@ -35,14 +36,6 @@ const getMovies = async () => {
         console.error(error);
     }
 };
-const getLancamentos = async () => {
-    try {
-        let response = await axios.get('https://api.themoviedb.org/3/movie/popular?api_key=49f0f29739e21ecda580cd926a19075e&language=en-US&page=1');
-        return response.data.results;
-    } catch (error) {
-        console.error(error);
-    }
-};
 
 export const Feed = (props: Props) => {
     const [lancamentos, setLancamentos] = useState([]);
@@ -50,16 +43,8 @@ export const Feed = (props: Props) => {
     const [searchQuery, setSearchQuery] = React.useState('');
 
     getMovies().then(movies => setMovies(movies));
-    getLancamentos().then(lancamentos => setLancamentos(movies));
+    //getLancamentos().then(lancamentos => setLancamentos(movies));
     const theme = useTheme();
-    const mov = movies.map(twittProps => ({
-        ...twittProps,
-        onPress: () =>
-            props.navigation &&
-            props.navigation.push('Details', {
-                ...twittProps,
-            }),
-    }));
     const lanca = movies.map(twittProps => ({
         ...twittProps,
         onPress: () =>
@@ -70,32 +55,25 @@ export const Feed = (props: Props) => {
     }));
 
     return (
-        <ScrollView style={styles.card}>
-            <Text style={styles.lancamentos}>Filmes em Lançamento</Text>
-            <Carousel
-                layout={"default"}
-                data={lanca}
-                autoplay={true}
-                sliderWidth={400}
-                itemWidth={300}
-                renderItem={renderCarousel}/>
+        <View style={styles.card}>
             <Text style={styles.lista}>Lista de Filmes</Text>
-            <FlatList
+            <OptimizedFlatList
                 contentContainerStyle={{backgroundColor: theme.colors.background}}
                 style={{backgroundColor: theme.colors.background}}
-                data={mov}
+                data={lanca}
                 renderItem={renderItem}
                 keyExtractor={keyExtractor}
                 ItemSeparatorComponent={() => (
                     <View style={{height: StyleSheet.hairlineWidth}}/>
                 )}
             />
-        </ScrollView>
+        </View>
     );
 };
 const styles = StyleSheet.create({
     card: {
-        padding: 20
+        padding: 20,
+        marginBottom: 50
     },
     lancamentos: {
         fontSize: 20,

@@ -7,6 +7,7 @@ import {StackNavigatorParamlist} from './types';
 import axios from "axios";
 import {SliderSeries} from "./components/sliderSeries";
 import {Series} from "./components/series";
+import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 
 type SerieProps = React.ComponentProps<typeof Series>;
 
@@ -38,7 +39,7 @@ const getSeries = async () => {
 const getLancamentos = async () => {
     try {
         let response = await axios.get('https://api.themoviedb.org/3/tv/top_rated?api_key=49f0f29739e21ecda580cd926a19075e&language=en-US&page=1');
-        return response.data;
+        return response.data.results.slice(0, 3);
     } catch (error) {
         console.error(error);
     }
@@ -71,8 +72,9 @@ export const Serie = (props: Props) => {
     }));
 
     return (
-            <View style={styles.card}>
-                <Text style={styles.lancamentos}>Series em Lançamento</Text>
+        <ScrollView style={styles.card}>
+            <Text style={styles.lancamentos}>Series em Lançamento</Text>
+            <View>
                 <Carousel
                     layout={"default"}
                     data={lanca}
@@ -80,8 +82,10 @@ export const Serie = (props: Props) => {
                     sliderWidth={400}
                     itemWidth={300}
                     renderItem={renderCarousel}/>
+            </View>
+            <View style={{marginBottom: 30}}>
                 <Text style={styles.lista}>Lista de Series</Text>
-                <FlatList
+                <OptimizedFlatList
                     contentContainerStyle={{backgroundColor: theme.colors.background}}
                     style={{backgroundColor: theme.colors.background}}
                     data={data}
@@ -92,6 +96,7 @@ export const Serie = (props: Props) => {
                     )}
                 />
             </View>
+        </ScrollView>
     );
 };
 const styles = StyleSheet.create({

@@ -55,10 +55,10 @@
                       </View>
                       <View style={styles.rightColumn}>
                           <View style={styles.topRow}>
-                              <Title>{props.title}</Title>
+                              <Title>{props.name}</Title>
                               <Caption style={[styles.handle, styles.dot]}>{'\u2B24'}</Caption>
                           </View>
-                          <Text style={{color: contentColor}}>{props.overview}</Text>
+                          <Text style={{color: contentColor}}>{props.overview.slice(0, 150)}</Text>
                           <View style={styles.bottomRow}>
                               <View style={styles.iconContainer}>
                                   <MaterialCommunityIcons
